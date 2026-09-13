@@ -1,0 +1,496 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fayzan Shikalgar — AI Frontend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0f1216;
+    --surface: #161a20;
+    --surface-2: #1d222a;
+    --line: #2a3038;
+    --text: #e7e6e2;
+    --muted: #8c93a0;
+    --accent: #5fa876;      /* pipeline green */
+    --accent-dim: #3d6e50;
+    --amber: #e0a458;       /* highlight amber */
+    --amber-dim: #a8794a;
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  a { color: var(--amber); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ---------- Header / pipeline strip ---------- */
+  header{
+    margin-bottom: 56px;
+  }
+
+  .pipeline{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .pipeline .node{
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    padding: 3px 9px;
+    border-radius: var(--radius);
+  }
+  .pipeline .arrow{ color: var(--line); }
+
+  h1{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.15;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .role{
+    font-size: 18px;
+    color: var(--amber);
+    font-weight: 500;
+    margin: 0 0 20px;
+  }
+
+  .contact-line{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .contact-line a { color: var(--muted); }
+  .contact-line a:hover { color: var(--amber); }
+
+  .summary{
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    color: #cfd1d6;
+    max-width: 66ch;
+  }
+
+  /* ---------- Section shell ---------- */
+  section{ margin-bottom: 56px; }
+
+  h2{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0 0 24px;
+    display:flex;
+    align-items:center;
+    gap: 12px;
+  }
+  h2::before{ content: "//"; color: var(--accent-dim); }
+  h2::after{
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-groups{
+    display: grid;
+    gap: 18px;
+  }
+  .skill-group{
+    display:grid;
+    grid-template-columns: 140px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .skill-group-label{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 6px;
+  }
+  .tags{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 5px 11px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .tag.core{
+    border-color: var(--accent-dim);
+    color: var(--accent);
+    background: rgba(95,168,118,0.08);
+    font-weight: 500;
+  }
+  .tag.ai{
+    border-color: var(--amber-dim);
+    color: var(--amber);
+    background: rgba(224,164,88,0.08);
+    font-weight: 500;
+  }
+
+  @media (max-width: 540px){
+    .skill-group{ grid-template-columns: 1fr; }
+    .skill-group-label{ padding-top: 0; }
+  }
+
+  /* ---------- Experience / Projects ---------- */
+  .card{
+    border-left: 2px solid var(--line);
+    padding: 4px 0 4px 20px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    left: -5px;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+  }
+  .card-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .card-title{
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text);
+  }
+  .card-meta{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .card-stack{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+  .card ul{
+    margin: 0;
+    padding-left: 18px;
+    color: #cfd1d6;
+  }
+  .card li{ margin-bottom: 6px; }
+  .card li::marker{ color: var(--accent-dim); }
+
+  /* ---------- Education ---------- */
+  .edu-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .edu-row:last-child{ border-bottom: none; }
+  .edu-name{ font-weight: 600; }
+  .edu-school{ color: var(--muted); font-size: 14px; }
+  .edu-score{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    text-align: right;
+  }
+  .sgpa-detail{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.8;
+  }
+
+  /* ---------- Positions ---------- */
+  .position{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .position:last-child{ border-bottom: none; }
+  .position-title{ font-weight: 600; }
+  .position-org{ color: var(--muted); font-size: 14px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer .row{ display:flex; flex-wrap: wrap; gap: 6px 20px; margin-bottom: 6px; }
+  footer .declaration{ margin-top: 14px; font-style: italic; opacity: 0.75; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="pipeline">
+      <span class="node">react</span><span class="arrow">→</span>
+      <span class="node">node</span><span class="arrow">→</span>
+      <span class="node">mongodb</span><span class="arrow">→</span>
+      <span class="node">deploy</span>
+    </div>
+    <h1>Fayzan Shikalgar</h1>
+    <p class="role">AI Frontend Engineer — React.js &amp; Next.js Developer</p>
+    <div class="contact-line">
+      <span>Mumbai, India</span>
+      <a href="tel:+917738852207">+91 7738852207</a>
+      <a href="mailto:fayzanintech15@gmail.com">fayzanintech15@gmail.com</a>
+      <a href="https://github.com/fayzannnn" target="_blank" rel="noopener">github.com/fayzannnn</a>
+    </div>
+    <p class="summary">
+      Detail-oriented Computer Science graduate and full-stack developer with hands-on experience
+      building responsive, production-ready web applications using React.js and the MERN stack.
+      Skilled at converting UI designs into pixel-perfect, reusable components, integrating REST APIs,
+      and managing application state with Redux, Zustand, and Context API. Actively uses AI-assisted
+      development tools to accelerate development, debugging, and code quality.
+    </p>
+  </header>
+
+  <section id="skills">
+    <h2>skills</h2>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <div class="skill-group-label">Frontend</div>
+        <div class="tags">
+          <span class="tag core">React.js</span>
+          <span class="tag">HTML5</span>
+          <span class="tag">CSS3</span>
+          <span class="tag core">Tailwind CSS</span>
+          <span class="tag">Bootstrap</span>
+          <span class="tag">Responsive UI</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">State Mgmt</div>
+        <div class="tags">
+          <span class="tag core">Redux</span>
+          <span class="tag core">Zustand</span>
+          <span class="tag core">Context API</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Backend</div>
+        <div class="tags">
+          <span class="tag core">Node.js</span>
+          <span class="tag core">Express.js</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Flask (Python)</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Database</div>
+        <div class="tags">
+          <span class="tag core">MongoDB</span>
+          <span class="tag">Mongoose ODM</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">AI Tooling</div>
+        <div class="tags">
+          <span class="tag ai">GitHub Copilot</span>
+          <span class="tag ai">Cursor</span>
+          <span class="tag ai">ChatGPT</span>
+          <span class="tag ai">Claude</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">ML / AI</div>
+        <div class="tags">
+          <span class="tag ai">Python</span>
+          <span class="tag ai">Scikit-learn</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">NumPy</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Auth &amp; Security</div>
+        <div class="tags">
+          <span class="tag">JWT Authentication</span>
+          <span class="tag">RBAC</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Tools</div>
+        <div class="tags">
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">VS Code</span>
+          <span class="tag">Postman</span>
+          <span class="tag">npm</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>experience</h2>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Digital Governance Internship — Daxy Private Limited</span>
+        <span class="card-meta">Jun 2026</span>
+      </div>
+      <ul>
+        <li>Selected as Digital Governance Intern for the Street Vendor Identity Card Project, a government initiative executed under authorization from BMC.</li>
+        <li>Supported field operations across BMC Ward Offices and on-site Mumbai locations, coordinating data collection and verification for street vendor identity registration.</li>
+        <li>Assisted in digitization of vendor records and deployment of technology systems to streamline identity card issuance workflows.</li>
+        <li>Collaborated with government stakeholders and internal teams while maintaining strict confidentiality and NDA compliance on a sensitive public-sector dataset.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>projects</h2>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Support CRM — Customer Ticketing System</span>
+      </div>
+      <div class="card-stack">MongoDB · Express · React · Node.js</div>
+      <ul>
+        <li>Built and deployed a full-stack customer support ticketing system enabling ticket creation, tracking, and resolution.</li>
+        <li>Designed a REST API with full CRUD operations, real-time search, and status-based filtering across a live ticket dataset.</li>
+        <li>Built an interactive dashboard with clickable stat cards (Total / Open / In Progress / Closed) that dynamically filter ticket views.</li>
+        <li>Deployed backend on Render and frontend on Vercel, resolving production database connectivity via MongoDB Atlas network configuration.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">VisaCheck — AI-Powered Visa Eligibility Verification</span>
+      </div>
+      <div class="card-stack">MERN Stack + Machine Learning</div>
+      <ul>
+        <li>Built a full-stack AI web app to predict visa approval probability before ticket booking.</li>
+        <li>Integrated a Python/Flask + Scikit-learn ML pipeline to evaluate visa approval likelihood from travel and passport data.</li>
+        <li>Developed secure user authentication, admin dashboards, passport upload, and real-time eligibility tracking.</li>
+        <li>Automated visa verification workflows, reducing manual effort and improving decision-making speed.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Fitness Club Management System</span>
+      </div>
+      <div class="card-stack">MERN Stack</div>
+      <ul>
+        <li>Developed a full-stack gym management web app handling memberships, trainer assignments, and subscription plans with a responsive Tailwind-driven UI.</li>
+        <li>Implemented JWT-based authentication with role-based access control for Admins and Members.</li>
+        <li>Designed responsive, cross-browser-compatible dashboards to track attendance, payments, and workout schedules in real time.</li>
+        <li>Digitized member records and automated daily operations, improving gym management efficiency.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>education</h2>
+    <div class="edu-row">
+      <div>
+        <div class="edu-name">Bachelor of Computer Science (B.Sc. CS)</div>
+        <div class="edu-school">MSG-SGKM College of Arts, Science and Commerce, Mumbai</div>
+      </div>
+      <div class="edu-score">2023–2026<br>Overall SGPA: 8.60</div>
+    </div>
+    <div class="sgpa-detail">
+      Sem I: 8.30 &nbsp;·&nbsp; Sem II: 8.95 &nbsp;·&nbsp; Sem III: 7.40 &nbsp;·&nbsp; Sem IV: 8.45 &nbsp;·&nbsp; Sem V: 9.50 &nbsp;·&nbsp; Sem VI: 8.40
+    </div>
+    <div class="edu-row">
+      <div>
+        <div class="edu-name">Higher Secondary Certificate (HSC – Science)</div>
+        <div class="edu-school">Elphinstone College of Arts, Science and Commerce</div>
+      </div>
+      <div class="edu-score">2022<br>50.43%</div>
+    </div>
+    <div class="edu-row">
+      <div>
+        <div class="edu-name">Secondary School Certificate (SSC)</div>
+        <div class="edu-school">Lokmanya Tilak High School</div>
+      </div>
+      <div class="edu-score">2020<br>69.70%</div>
+    </div>
+  </section>
+
+  <section id="leadership">
+    <h2>positions of responsibility</h2>
+    <div class="position">
+      <span class="position-title">Sports Event Head — Parambh Fest, MSG SGKM College</span>
+      <span class="position-org">Led planning and execution of college sports events, managing coordination across student teams.</span>
+    </div>
+    <div class="position">
+      <span class="position-title">Sports Committee Member — MSG SGKM College</span>
+      <span class="position-org">Contributed to organizing inter-college sporting activities and student engagement initiatives.</span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>DOB: 15 August 2004</span>
+      <span>Nationality: Indian</span>
+      <span>Languages: English, Hindi, Marathi</span>
+    </div>
+    <p class="declaration">I hereby affirm that the information furnished above is true and correct to the best of my knowledge.</p>
+  </footer>
+
+</div>
+</body>
+</html>
